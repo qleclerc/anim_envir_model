@@ -19,7 +19,7 @@ parameters <- c(beta_FarmS = 0.1,    # transmission rate farm animals
                 beta_PetS = 0.05,     # transmission rate pets and peridomestic animals
                 beta_WildS = 0.04,    # transmission rate wild animals local
                 beta_FishS = 0.1,    # transmission rate fish
-                fc = 0.99,            # fitness cost of resistance
+                fc = 0.99,            # relative fitness of resistant strains
                 gammaFarm = 1/30,     # carriage cessation in farm animals (1/days)
                 gammaFarmABX = 1/7,  # additional carriage cessation if treated with ABX (1/days)
                 gammaPet = 1/30,      # carriage cessation in pets and peridomestic animals (1/days)
@@ -146,14 +146,14 @@ AE_model <- function(time, state, parameters) {
     dFishN <- -(lambdaFishS + lambdaFishR)*FishN + (gammaFish+gammaFishABX*FishExp)*FishCs + gammaFish*FishCr
     
     dFishCs <- lambdaFishS*FishN - (gammaFish+gammaFishABX*FishExp)*FishCs + FishLoss*FishCr -
-      FishCs*(FarmtoFish*WildCr/(WildCr+WildCs+WildN) + 
+      FishCs*(FarmtoFish*FarmCr/(FarmCr+FarmCs+FarmN) + 
                 PettoFish*PetCr/(PetCr+PetCs+PetN) +
                 WildtoFish*WildCr/(WildCr+WildCs+WildN) +
                 WatertoFish*(WaterCr/WaterCarrying) +
                 SoiltoFish*(SoilCr/SoilCarrying))
     
     dFishCr <- lambdaFishR*FishN - gammaFish*FishCr - FishLoss*FishCr +
-      FishCs*(FarmtoFish*WildCr/(WildCr+WildCs+WildN) + 
+      FishCs*(FarmtoFish*FarmCr/(FarmCr+FarmCs+FarmN) + 
                 PettoFish*PetCr/(PetCr+PetCs+PetN) +
                 WildtoFish*WildCr/(WildCr+WildCs+WildN) +
                 WatertoFish*(WaterCr/WaterCarrying) +
