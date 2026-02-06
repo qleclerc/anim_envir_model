@@ -49,3 +49,38 @@ extract_outcomes = function(output){
 }
 
 extract_outcomes(output)
+
+extract_outcomes2 = function(output){
+  
+  #How long until the ARG is above 25% for each compartment
+  min_time_Fish = min(which(output$FishCr/(output$FishN+output$FishCs+output$FishCr) > 0.25))
+  min_time_Farm = min(which(output$FarmCr/(output$FarmN+output$FarmCs+output$FarmCr) > 0.25))
+  min_time_Wild = min(which(output$WildCr/(output$WildN+output$WildCs+output$WildCr) > 0.25))
+  min_time_Pet = min(which(output$PetCr/(output$PetN+output$PetCs+output$PetCr) > 0.25))
+  min_time_Water = min(which(output$WaterCr/(output$WaterCs+output$WaterCr) > 0.25))
+  min_time_Soil = min(which(output$SoilCr/(output$SoilCs+output$SoilCr) > 0.25))
+
+  #Prevalence all compartments at the end of the simulation
+  prev_Fish = output$FishCr[nrow(output)]/(output$FishN[nrow(output)]+output$FishCs[nrow(output)]+output$FishCr[nrow(output)])
+  prev_Farm = output$FarmCr[nrow(output)]/(output$FarmN[nrow(output)]+output$FarmCs[nrow(output)]+output$FarmCr[nrow(output)])
+  prev_Pet = output$PetCr[nrow(output)]/(output$PetN[nrow(output)]+output$PetCs[nrow(output)]+output$PetCr[nrow(output)])
+  prev_Wild = output$WildCr[nrow(output)]/(output$WildN[nrow(output)]+output$WildCs[nrow(output)]+output$WildCr[nrow(output)])
+  prev_Water = output$WaterCr[nrow(output)]/(output$WaterCs[nrow(output)]+output$WaterCr[nrow(output)])
+  prev_Soil = output$SoilCr[nrow(output)]/(output$SoilCs[nrow(output)]+output$SoilCr[nrow(output)])
+
+  outcomes = list(min_time_Fish = min_time_Fish,
+                  min_time_Farm = min_time_Farm,
+                  min_time_Wild = min_time_Wild,
+                  min_time_Pet = min_time_Pet,
+                  min_time_Water = min_time_Water,
+                  min_time_Soil = min_time_Soil,
+                  prev_Fish = prev_Fish,
+                  prev_Farm = prev_Farm,
+                  prev_Pet = prev_Pet,
+                  prev_Wild = prev_Wild,
+                  prev_Water = prev_Water,
+                  prev_Soil = prev_Soil)
+  
+  return(outcomes)
+  
+}

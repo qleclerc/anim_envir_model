@@ -60,35 +60,111 @@ parameters <- c(beta_FarmS = 0.1,    # transmission rate farm animals
                 FarmtoWater = 0.01,
                 FarmtoSoil = 0.01,
                 
-                # PettoFarm = FarmtoPet,
-                PettoWild = 0.005,
+                PettoFarm = 0.02,
+                PettoWild = 0.01,
                 PettoFish = 0,
-                PettoWater = 0.005,
-                PettoSoil = 0.005,
+                PettoWater = 0.01,
+                PettoSoil = 0.01,
                 
-                # WildtoFarm = FarmtoWild,
-                # WildtoPet = PettoWild,
+                WildtoFarm = 0.01,
+                WildtoPet = 0.01,
                 WildtoFish = 0.005,
                 WildtoWater = 0.01,
                 WildtoSoil = 0.01,
                 
-                # FishtoFarm = FarmtoFish,
-                # FishtoPet = PettoFish,
-                # FishtoWild = WildtoFish,
+                FishtoFarm = 0,
+                FishtoPet = 0,
+                FishtoWild = 0.005,
                 FishtoWater = 0.02,
                 FishtoSoil = 0,
                 
-                # WatertoFarm = FarmtoWater,
-                # WatertoPet = PettoWater,
-                # WatertoWild = WildtoWater,
-                # WatertoFish = FishtoWater,
-                WatertoSoil = 0.01
+                WatertoFarm = 0.01,
+                WatertoPet = 0.01,
+                WatertoWild = 0.01,
+                WatertoFish = 0.02,
+                WatertoSoil = 0.01,
                 
-                # SoiltoFarm = FarmtoSoil,
-                # SoiltoPet = PettoSoil,
-                # SoiltoWild = WildtoSoil,
-                # SoiltoFish = FishtoSoil,
-                # SoiltoWater = WatertoSoil
+                SoiltoFarm = 0.01,
+                SoiltoPet = 0.01,
+                SoiltoWild = 0.01,
+                SoiltoFish = 0,
+                SoiltoWater = 0.01
+)
+
+alt_parameters = c(beta_FarmS = 0.25,    # transmission rate farm animals
+                   beta_PetS = 0.14,     # transmission rate pets and peridomestic animals
+                   beta_WildS = 0.05,    # transmission rate wild animals local
+                   beta_FishS = 0.65,    # transmission rate fish
+                   fc = 0.99,            # relative fitness of resistant strains
+                   gammaFarm = 1/30,     # carriage cessation in farm animals (1/days)
+                   gammaFarmABX = 1/7,  # additional carriage cessation if treated with ABX (1/days)
+                   gammaPet = 1/30,      # carriage cessation in pets and peridomestic animals (1/days)
+                   gammaPetABX = 1/7,   # additional carriage cessation if treated with ABX (1/days)
+                   gammaWild = 1/30,     # carriage cessation in wildlife animals (1/days)
+                   gammaWildABX = 1/7,  # additional carriage cessation if treated with ABX (1/days)
+                   gammaFish = 1/10,     # carriage cessation in fish (1/days)
+                   gammaFishABX = 1/7,  # additional carriage cessation if treated with ABX (1/days)
+                   FarmLoss = 10e-6,       # rate of ARG loss in farm animals
+                   PetLoss = 10e-6,       # rate of ARG loss in pets and peridomestic animals
+                   WildLoss = 10e-6,       # rate of ARG loss in wildlife
+                   FishLoss = 10e-6,       # rate of ARG loss in fish
+                   
+                   FarmExp = 0.5,         # proportion of farm animals exposed to abx
+                   PetExp = 0.15,         # proportion of pets and peridomestic animals exposed to abx
+                   WildExp = 0.025,         # proportion of wild animals exposed to abx
+                   FishExp = 0.5,         # proportion of farm fish exposed to abx
+                   
+                   WaterGrowthCs = 0.2,   # growth rate of S bacteria in water
+                   WaterGrowthCr = 0.2,   # growth rate of R bacteria in water
+                   WaterCarrying = 10e5, # carrying capacity of bacteria in water
+                   WaterDecay = 0.02,      # decay rate of bacteria in water
+                   WaterHGT = 10e-6,        # rate of HGT in water
+                   WaterLoss = 0.05,       # rate of ARG loss in water
+                   WaterAbx = 0.001,       # rate of antibiotic exposure in water
+                   
+                   SoilGrowthCs = 0.1,   # growth rate of S bacteria in soil
+                   SoilGrowthCr = 0.1,   # growth rate of R bacteria in soil
+                   SoilCarrying = 10e10, # carrying capacity of bacteria in soil
+                   SoilDecay = 0.01,      # decay rate of bacteria in soil
+                   SoilHGT = 10e-7,        # rate of HGT in soil
+                   SoilLoss = 0.05,       # rate of ARG loss in soil
+                   SoilAbx = 0.001,      # rate of antibiotic exposure in soil
+                   
+                   FarmtoPet = 0.02,
+                   FarmtoWild = 0.01,
+                   FarmtoFish = 0,
+                   FarmtoWater = 0.01,
+                   FarmtoSoil = 0.01,
+                   
+                   PettoFarm = 0.02,
+                   PettoWild = 0.01,
+                   PettoFish = 0,
+                   PettoWater = 0.01,
+                   PettoSoil = 0.01,
+                   
+                   WildtoFarm = 0.01,
+                   WildtoPet = 0.01,
+                   WildtoFish = 0.005,
+                   WildtoWater = 0.01,
+                   WildtoSoil = 0.01,
+                   
+                   FishtoFarm = 0,
+                   FishtoPet = 0,
+                   FishtoWild = 0.005,
+                   FishtoWater = 0.02,
+                   FishtoSoil = 0,
+                   
+                   WatertoFarm = 0.01,
+                   WatertoPet = 0.01,
+                   WatertoWild = 0.01,
+                   WatertoFish = 0.02,
+                   WatertoSoil = 0.01,
+                   
+                   SoiltoFarm = 0.01,
+                   SoiltoPet = 0.01,
+                   SoiltoWild = 0.01,
+                   SoiltoFish = 0,
+                   SoiltoWater = 0.01
 )
 
 
@@ -118,27 +194,6 @@ AE_model <- function(time, state, parameters) {
     
     lambdaPetS <- beta_PetS*(PetCs)/(PetN+PetCs+PetCr)
     lambdaPetR <- beta_PetS*fc*(PetCr)/(PetN+PetCs+PetCr)
-    
-    
-    PettoFarm = FarmtoPet
-
-    WildtoFarm = FarmtoWild
-    WildtoPet = PettoWild
-
-    FishtoFarm = FarmtoFish
-    FishtoPet = PettoFish
-    FishtoWild = WildtoFish
-
-    WatertoFarm = FarmtoWater
-    WatertoPet = PettoWater
-    WatertoWild = WildtoWater
-    WatertoFish = FishtoWater
-
-    SoiltoFarm = FarmtoSoil
-    SoiltoPet = PettoSoil
-    SoiltoWild = WildtoSoil
-    SoiltoFish = FishtoSoil
-    SoiltoWater = WatertoSoil
     
     
     ########################################## Model equations: #############################################
